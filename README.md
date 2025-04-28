@@ -7,6 +7,7 @@ UOW-TM-Tools is a collection of Tampermonkey scripts designed to enhance the use
 ## Features
 
 * **Moodle Popups** - Enhances Moodle by modifying popup behaviors for a more seamless navigation experience.
+* **Moodle Overdue Notification Remover** - Removes scary and erroneous overdue messages on Moodle.
 * **SOLS Auto Read** - Automates the process of marking SOLS messages as read, saving time and effort.
 * **SOLS WAM Calculator** - Automatically calculate your WAM score and add it to SOLS
 
