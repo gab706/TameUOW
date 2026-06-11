@@ -1,0 +1,58 @@
+{
+  "manifest_version": 3,
+  "name": "TameUOW",
+  "version": "2.0.0",
+  "description": "UOW SOLS and Moodle helpers as a standalone Chrome extension.",
+  "permissions": ["notifications", "storage"],
+  "host_permissions": [
+    "https://solss.uow.edu.au/*",
+    "https://moodle.uowplatform.edu.au/*"
+  ],
+  "action": {
+    "default_title": "TameUOW blocked items",
+    "default_popup": "src/popup.html",
+    "default_icon": {
+      "16": "icons/icon-16.png",
+      "32": "icons/icon-32.png",
+      "48": "icons/icon-48.png",
+      "128": "icons/icon-128.png"
+    }
+  },
+  "icons": {
+    "16": "icons/icon-16.png",
+    "32": "icons/icon-32.png",
+    "48": "icons/icon-48.png",
+    "128": "icons/icon-128.png"
+  },
+  "background": {
+    "service_worker": "src/background.js"
+  },
+  "content_scripts": [
+    {
+      "matches": ["https://solss.uow.edu.au/sid/sols_enrolment_record_student*"],
+      "js": ["src/sols-wam.js"],
+      "run_at": "document_idle"
+    },
+    {
+      "matches": ["https://solss.uow.edu.au/*"],
+      "js": ["src/sols-auto-read.js"],
+      "run_at": "document_idle"
+    },
+    {
+      "matches": ["https://solss.uow.edu.au/sid/sols_tutorial_enrolment.my_timetable*"],
+      "js": ["src/better-timetable.js"],
+      "run_at": "document_idle"
+    },
+    {
+      "matches": ["https://moodle.uowplatform.edu.au/*"],
+      "js": ["src/moodle-popups.js"],
+      "run_at": "document_idle"
+    }
+  ],
+  "web_accessible_resources": [
+    {
+      "resources": ["src/moodle-page-bridge.js"],
+      "matches": ["https://moodle.uowplatform.edu.au/*"]
+    }
+  ]
+}

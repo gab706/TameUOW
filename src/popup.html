@@ -1,0 +1,152 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>TameUOW</title>
+    <link rel="stylesheet" href="popup.css">
+  </head>
+  <body>
+    <header class="hero">
+      <div class="brand">
+        <img src="../icons/icon-48.png" alt="" width="40" height="40">
+        <div>
+          <h1>TameUOW</h1>
+          <p>Control center for SOLS and Moodle.</p>
+        </div>
+      </div>
+      <div class="status-pill">
+        <span id="enabled-count">0</span>
+        <small>enabled</small>
+      </div>
+    </header>
+
+    <nav class="top-tabs" aria-label="Popup sections">
+      <button class="view-tab active" type="button" data-view="settings">Settings</button>
+      <button class="view-tab" type="button" data-view="activity">Activity</button>
+      <button class="view-tab" type="button" data-view="about">Build</button>
+    </nav>
+
+    <main>
+      <section id="settings-view" class="view active" aria-label="Settings">
+        <section class="panel">
+          <div class="panel-heading">
+            <div>
+              <h2>SOLS</h2>
+              <p>Quality-of-life upgrades for the student portal.</p>
+            </div>
+          </div>
+
+          <label class="setting-row">
+            <span class="setting-copy">
+              <strong>Auto-read SOLSMail</strong>
+              <small>Marks read confirmations automatically and stores skipped message details.</small>
+            </span>
+            <input id="sols-toggle" class="toggle-input" type="checkbox">
+            <span class="toggle-shell" aria-hidden="true"></span>
+          </label>
+
+          <label class="setting-row">
+            <span class="setting-copy">
+              <strong>Better Timetable</strong>
+              <small>Replaces the default timetable with filters, overlap switching, and cleaner details.</small>
+            </span>
+            <input id="timetable-toggle" class="toggle-input" type="checkbox">
+            <span class="toggle-shell" aria-hidden="true"></span>
+          </label>
+        </section>
+
+        <section class="panel">
+          <div class="panel-heading">
+            <div>
+              <h2>Moodle</h2>
+              <p>Keep the learning platform quieter.</p>
+            </div>
+          </div>
+
+          <label class="setting-row">
+            <span class="setting-copy">
+              <strong>Popup blocker</strong>
+              <small>Blocks Moodle prompt popups and records their contents for review.</small>
+            </span>
+            <input id="moodle-toggle" class="toggle-input" type="checkbox">
+            <span class="toggle-shell" aria-hidden="true"></span>
+          </label>
+        </section>
+      </section>
+
+      <section id="activity-view" class="view" aria-label="Activity">
+        <section class="activity-summary">
+          <article>
+            <span id="sols-count">0</span>
+            <small>SOLS skipped</small>
+          </article>
+          <article>
+            <span id="moodle-count">0</span>
+            <small>Moodle blocked</small>
+          </article>
+        </section>
+
+        <section class="panel">
+          <div class="panel-heading row-heading">
+            <div>
+              <h2>History</h2>
+              <p>Review content handled by TameUOW.</p>
+            </div>
+            <button id="clear-all" class="ghost-button" type="button">Clear</button>
+          </div>
+
+          <nav class="history-tabs" aria-label="History categories">
+            <button class="history-tab active" type="button" data-kind="sols">SOLS</button>
+            <button class="history-tab" type="button" data-kind="moodle">Moodle</button>
+          </nav>
+
+          <section id="empty-state" class="empty-state">No skipped messages or blocked popups yet.</section>
+          <ol id="items" class="history-list"></ol>
+        </section>
+      </section>
+
+      <section id="about-view" class="view" aria-label="Build information">
+        <section class="panel">
+          <div class="panel-heading">
+            <div>
+              <h2>Build Info</h2>
+              <p>Installed extension metadata.</p>
+            </div>
+          </div>
+
+          <dl class="build-list">
+            <div>
+              <dt>Name</dt>
+              <dd id="build-name">TameUOW</dd>
+            </div>
+            <div>
+              <dt>Version</dt>
+              <dd id="build-version">-</dd>
+            </div>
+            <div>
+              <dt>Manifest</dt>
+              <dd>v3</dd>
+            </div>
+            <div>
+              <dt>Updated</dt>
+              <dd id="build-date">Local unpacked build</dd>
+            </div>
+          </dl>
+        </section>
+
+        <section class="panel compact-panel">
+          <h2>Modules</h2>
+          <ul class="module-list">
+            <li>SOLS WAM Calculator</li>
+            <li>SOLS Auto-read</li>
+            <li>Better Timetable</li>
+            <li>Moodle Popup Blocker</li>
+          </ul>
+        </section>
+      </section>
+    </main>
+
+    <script src="popup.js"></script>
+  </body>
+</html>
