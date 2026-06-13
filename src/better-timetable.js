@@ -108,6 +108,14 @@
     return next;
   };
 
+  const getWeekdayIndex = (date) => (date.getDay() + 6) % 7;
+
+  const getWeekStart = (date) => addDays(toDateOnly(date), -getWeekdayIndex(date));
+
+  const getWeekEnd = (date) => addDays(getWeekStart(date), 4);
+
+  const isWeekend = (date) => getWeekdayIndex(date) > 4;
+
   const isWithinRange = (date, range) =>
     Boolean(range?.start && range?.end &&
       date >= fromISODate(range.start) &&
@@ -438,6 +446,24 @@
     };
   };
 
+  const getPeriodWeekRanges = (period, prefix) => {
+    const dateRange = normaliseDateRange(period);
+    if (!dateRange) return [];
+
+    const ranges = [];
+    for (let start = getWeekStart(dateRange.start); start <= dateRange.end; start = addDays(start, 7)) {
+      const end = getWeekEnd(start);
+      if (end < dateRange.start) continue;
+      ranges.push({
+        value: `${prefix}-${toISODate(start)}`,
+        week: null,
+        start,
+        end
+      });
+    }
+    return ranges;
+  };
+
   const getSelectableDateRanges = (session) => {
     if (!session || session.semester === "break") return [];
     const ranges = [];
@@ -448,36 +474,41 @@
     }
 
     [
-      ...(session.periods?.midSessionRecesses || []),
-      ...(session.periods?.studyRecesses || []),
-      ...(session.periods?.exams || [])
-    ].forEach((period, index) => {
-      const dateRange = normaliseDateRange(period);
-      if (!dateRange) return;
-      ranges.push({
-        value: `period-${index}-${period.start}`,
-        week: null,
-        ...dateRange
-      });
+      ["mid-session-recess", session.periods?.midSessionRecesses || []],
+      ["study-recess", session.periods?.studyRecesses || []],
+      ["exam-period", session.periods?.exams || []]
+    ].forEach(([prefix, periods]) => {
+      periods.forEach((period) => ranges.push(...getPeriodWeekRanges(period, prefix)));
     });
 
     return ranges.sort((a, b) => a.start - b.start);
+  };
+
+  const getDefaultDateRangeOption = (session, date = new Date()) => {
+    const ranges = getSelectableDateRanges(session);
+    if (!ranges.length) return null;
+    const today = toDateOnly(date);
+    if (isWeekend(today)) {
+      const previousRanges = ranges.filter((range) => today > toDateOnly(range.end));
+      return previousRanges[previousRanges.length - 1] || ranges[0];
+    }
+    const currentRange = ranges.find((range) => today >= toDateOnly(range.start) && today <= toDateOnly(range.end));
+    if (currentRange) return currentRange;
+    const previousRanges = ranges.filter((range) => today > toDateOnly(range.end));
+    return previousRanges[previousRanges.length - 1] || ranges[0];
   };
 
   const getSelectedDateRangeOption = (session) => {
     const ranges = getSelectableDateRanges(session);
     if (!ranges.length) return null;
     const sessionKey = getSessionKey(session);
-    const today = toDateOnly(new Date());
-    const currentRange = ranges.find((range) => today >= toDateOnly(range.start) && today <= toDateOnly(range.end));
-    if (!hasManualWeekSelection && currentRange) return currentRange;
+    const defaultRange = getDefaultDateRangeOption(session);
+    if (!hasManualWeekSelection) return defaultRange;
     if (hasManualWeekSelection && selectedWeekState?.sessionKey === sessionKey && selectedWeekState?.value) {
       const selected = ranges.find((range) => range.value === String(selectedWeekState.value));
       if (selected) return selected;
     }
-    if (currentRange) return currentRange;
-    const selectedWeek = getSelectedWeek(session);
-    return ranges.find((range) => range.week === selectedWeek) || ranges[ranges.length - 1];
+    return defaultRange;
   };
 
   const getTeachingWeekDateRange = (session, week) => {
