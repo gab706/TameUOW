@@ -1,6 +1,5 @@
 const state = {
-  activeKind: "sols",
-  activeView: "settings",
+  activeView: "home",
   items: {
     sols: [],
     moodle: []
@@ -10,11 +9,6 @@ const state = {
     moodlePopupBlockingEnabled: true,
     betterTimetableEnabled: true
   }
-};
-
-const labels = {
-  sols: "SOLS",
-  moodle: "Moodle"
 };
 
 const settingKeys = [
@@ -41,7 +35,7 @@ const renderBuildInfo = () => {
   const manifest = chrome.runtime.getManifest();
   document.getElementById("build-name").textContent = manifest.name || "TameUOW";
   document.getElementById("build-version").textContent = manifest.version || "-";
-  document.getElementById("build-date").textContent = "Local unpacked build";
+  document.getElementById("build-date").textContent = "Local unpacked";
 };
 
 const renderViews = () => {
@@ -60,22 +54,15 @@ const renderSettings = () => {
 
   const enabledCount = settingKeys.filter((key) => state.settings[key]).length;
   document.getElementById("enabled-count").textContent = `${enabledCount}/${settingKeys.length}`;
+  document.getElementById("settings-summary").textContent = `${enabledCount} of ${settingKeys.length} helpers enabled`;
 };
 
-const renderHistory = () => {
-  document.getElementById("sols-count").textContent = state.items.sols.length;
-  document.getElementById("moodle-count").textContent = state.items.moodle.length;
-
-  document.querySelectorAll(".history-tab").forEach((tab) => {
-    tab.classList.toggle("active", tab.dataset.kind === state.activeKind);
-  });
-
-  const items = state.items[state.activeKind] || [];
-  const list = document.getElementById("items");
-  const empty = document.getElementById("empty-state");
+const renderList = (kind) => {
+  const items = state.items[kind] || [];
+  const list = document.getElementById(`${kind}-items`);
+  const empty = document.getElementById(`${kind}-empty-state`);
   list.textContent = "";
   empty.style.display = items.length ? "none" : "block";
-  empty.textContent = `No ${labels[state.activeKind]} items recorded yet.`;
 
   items.forEach((item) => {
     const li = document.createElement("li");
@@ -96,6 +83,15 @@ const renderHistory = () => {
     li.append(title, detail, meta);
     list.appendChild(li);
   });
+};
+
+const renderHistory = () => {
+  const solsCount = state.items.sols.length;
+  const moodleCount = state.items.moodle.length;
+  document.getElementById("sols-count").textContent = solsCount ? String(solsCount) : "";
+  document.getElementById("moodle-count").textContent = moodleCount ? String(moodleCount) : "";
+  renderList("sols");
+  renderList("moodle");
 };
 
 const render = () => {
@@ -134,19 +130,14 @@ document.querySelectorAll(".view-tab").forEach((tab) => {
   });
 });
 
-document.querySelectorAll(".history-tab").forEach((tab) => {
-  tab.addEventListener("click", () => {
-    state.activeKind = tab.dataset.kind;
-    render();
+document.querySelectorAll(".clear-kind").forEach((button) => {
+  button.addEventListener("click", async () => {
+    const response = await send({ type: "clear-blocked-items", kind: button.dataset.kind });
+    if (response?.ok) {
+      state.items = { ...state.items, ...response.state };
+      render();
+    }
   });
-});
-
-document.getElementById("clear-all").addEventListener("click", async () => {
-  const response = await send({ type: "clear-blocked-items" });
-  if (response?.ok) {
-    state.items = { ...state.items, ...response.state };
-    render();
-  }
 });
 
 document.getElementById("sols-toggle").addEventListener("change", (event) => {

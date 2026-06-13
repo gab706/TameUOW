@@ -7,40 +7,71 @@
     <link rel="stylesheet" href="popup.css">
   </head>
   <body>
-    <header class="hero">
-      <div class="brand">
-        <img src="../icons/icon-48.png" alt="" width="40" height="40">
-        <div>
-          <h1>TameUOW</h1>
-          <p>Control center for SOLS and Moodle.</p>
-        </div>
+    <nav class="icon-rail" aria-label="TameUOW sections">
+      <img src="../icons/icon-48.png" alt="" width="32" height="32">
+      <button class="view-tab" type="button" data-view="sols" title="Mail Sweep" aria-label="Mail Sweep">
+        <svg class="rail-icon" viewBox="0 0 24 24" aria-hidden="true">
+          <path d="M4 6.5h16v11H4z"></path>
+          <path d="m4.5 7 7.5 6 7.5-6"></path>
+        </svg>
+        <small id="sols-count">0</small>
+      </button>
+      <button class="view-tab" type="button" data-view="moodle" title="Quiet Moodle" aria-label="Quiet Moodle">
+        <svg class="rail-icon" viewBox="0 0 24 24" aria-hidden="true">
+          <path d="M5 5h14v10H8l-3 3z"></path>
+          <path d="M9 9h6"></path>
+          <path d="M9 12h3"></path>
+        </svg>
+        <small id="moodle-count">0</small>
+      </button>
+      <div class="rail-utilities">
+        <button class="view-tab" type="button" data-view="settings" title="Settings" aria-label="Settings">
+          <svg class="rail-icon" viewBox="0 0 24 24" aria-hidden="true">
+            <path d="M12 8.2a3.8 3.8 0 1 0 0 7.6 3.8 3.8 0 0 0 0-7.6z"></path>
+            <path d="M19.4 13.6a7.9 7.9 0 0 0 0-3.2l2-1.5-2-3.4-2.4 1a8.1 8.1 0 0 0-2.8-1.6L14 2.3h-4l-.3 2.6a8.1 8.1 0 0 0-2.8 1.6l-2.4-1-2 3.4 2 1.5a7.9 7.9 0 0 0 0 3.2l-2 1.5 2 3.4 2.4-1a8.1 8.1 0 0 0 2.8 1.6l.3 2.6h4l.3-2.6a8.1 8.1 0 0 0 2.8-1.6l2.4 1 2-3.4z"></path>
+          </svg>
+          <small id="enabled-count" class="settings-count">0/3</small>
+        </button>
+        <button class="view-tab" type="button" data-view="about" title="Build info" aria-label="Build info">
+          <svg class="rail-icon" viewBox="0 0 24 24" aria-hidden="true">
+            <path d="M12 21a9 9 0 1 0 0-18 9 9 0 0 0 0 18z"></path>
+            <path d="M12 11v5"></path>
+            <path d="M12 8h.01"></path>
+          </svg>
+        </button>
       </div>
-      <div class="status-pill">
-        <span id="enabled-count">0</span>
-        <small>enabled</small>
-      </div>
-    </header>
-
-    <nav class="top-tabs" aria-label="Popup sections">
-      <button class="view-tab active" type="button" data-view="settings">Settings</button>
-      <button class="view-tab" type="button" data-view="activity">Activity</button>
-      <button class="view-tab" type="button" data-view="about">Build</button>
     </nav>
 
     <main>
-      <section id="settings-view" class="view active" aria-label="Settings">
-        <section class="panel">
-          <div class="panel-heading">
-            <div>
-              <h2>SOLS</h2>
-              <p>Quality-of-life upgrades for the student portal.</p>
-            </div>
-          </div>
+      <section id="home-view" class="view active" aria-label="Home">
+        <header class="page-head">
+          <span>TameUOW</span>
+          <h1>UOW companion extension.</h1>
+          <p>A standalone Chrome extension for SOLS and Moodle quality-of-life tools.</p>
+        </header>
+        <section class="update-log home-update">
+          <h2>Version 2.0.0</h2>
+          <ul>
+            <li>Moved TameUOW from Tampermonkey scripts into a standalone Chrome extension.</li>
+            <li>Added Timetable Plus with filters, clearer details, and overlap switching.</li>
+            <li>Separated Mail Sweep and Quiet Moodle into their own activity logs.</li>
+            <li>Refreshed the popup around icon navigation and quieter settings.</li>
+          </ul>
+        </section>
+      </section>
 
+      <section id="settings-view" class="view" aria-label="Settings">
+        <header class="page-head">
+        <span id="settings-summary">0 of 3 helpers enabled</span>
+          <h1>Settings</h1>
+          <p>Choose the helpers TameUOW runs in SOLS and Moodle.</p>
+        </header>
+
+        <section class="settings-list" aria-label="Feature settings">
           <label class="setting-row">
             <span class="setting-copy">
-              <strong>Auto-read SOLSMail</strong>
-              <small>Marks read confirmations automatically and stores skipped message details.</small>
+              <strong>Mail Sweep</strong>
+              <small>Auto-confirms SOLSMail read prompts and keeps a local review log.</small>
             </span>
             <input id="sols-toggle" class="toggle-input" type="checkbox">
             <span class="toggle-shell" aria-hidden="true"></span>
@@ -48,26 +79,17 @@
 
           <label class="setting-row">
             <span class="setting-copy">
-              <strong>Better Timetable</strong>
-              <small>Replaces the default timetable with filters, overlap switching, and cleaner details.</small>
+              <strong>Timetable Plus</strong>
+              <small>Adds filters, overlap switching, and clearer class details to SOLS timetable.</small>
             </span>
             <input id="timetable-toggle" class="toggle-input" type="checkbox">
             <span class="toggle-shell" aria-hidden="true"></span>
           </label>
-        </section>
-
-        <section class="panel">
-          <div class="panel-heading">
-            <div>
-              <h2>Moodle</h2>
-              <p>Keep the learning platform quieter.</p>
-            </div>
-          </div>
 
           <label class="setting-row">
             <span class="setting-copy">
-              <strong>Popup blocker</strong>
-              <small>Blocks Moodle prompt popups and records their contents for review.</small>
+              <strong>Quiet Moodle</strong>
+              <small>Blocks Moodle prompts and saves their content for later review.</small>
             </span>
             <input id="moodle-toggle" class="toggle-input" type="checkbox">
             <span class="toggle-shell" aria-hidden="true"></span>
@@ -75,73 +97,65 @@
         </section>
       </section>
 
-      <section id="activity-view" class="view" aria-label="Activity">
-        <section class="activity-summary">
-          <article>
-            <span id="sols-count">0</span>
-            <small>SOLS skipped</small>
-          </article>
-          <article>
-            <span id="moodle-count">0</span>
-            <small>Moodle blocked</small>
-          </article>
-        </section>
-
-        <section class="panel">
-          <div class="panel-heading row-heading">
-            <div>
-              <h2>History</h2>
-              <p>Review content handled by TameUOW.</p>
-            </div>
-            <button id="clear-all" class="ghost-button" type="button">Clear</button>
+      <section id="sols-view" class="view" aria-label="Mail Sweep activity">
+        <header class="page-head row-head">
+          <div>
+            <span>Activity</span>
+            <h1>Mail Sweep</h1>
+            <p>SOLSMail prompts handled by the extension.</p>
           </div>
+          <button class="text-button clear-kind" type="button" data-kind="sols">Clear</button>
+        </header>
+        <section id="sols-empty-state" class="empty-state">No Mail Sweep items recorded yet.</section>
+        <ol id="sols-items" class="history-list"></ol>
+      </section>
 
-          <nav class="history-tabs" aria-label="History categories">
-            <button class="history-tab active" type="button" data-kind="sols">SOLS</button>
-            <button class="history-tab" type="button" data-kind="moodle">Moodle</button>
-          </nav>
-
-          <section id="empty-state" class="empty-state">No skipped messages or blocked popups yet.</section>
-          <ol id="items" class="history-list"></ol>
-        </section>
+      <section id="moodle-view" class="view" aria-label="Quiet Moodle activity">
+        <header class="page-head row-head">
+          <div>
+            <span>Activity</span>
+            <h1>Quiet Moodle</h1>
+            <p>Moodle prompts blocked and saved locally.</p>
+          </div>
+          <button class="text-button clear-kind" type="button" data-kind="moodle">Clear</button>
+        </header>
+        <section id="moodle-empty-state" class="empty-state">No Quiet Moodle items recorded yet.</section>
+        <ol id="moodle-items" class="history-list"></ol>
       </section>
 
       <section id="about-view" class="view" aria-label="Build information">
-        <section class="panel">
-          <div class="panel-heading">
-            <div>
-              <h2>Build Info</h2>
-              <p>Installed extension metadata.</p>
-            </div>
+        <header class="page-head">
+          <span>Build</span>
+          <h1>TameUOW</h1>
+          <p>Installed extension details.</p>
+        </header>
+
+        <dl class="build-list">
+          <div>
+            <dt>Name</dt>
+            <dd id="build-name">TameUOW</dd>
           </div>
+          <div>
+            <dt>Version</dt>
+            <dd id="build-version">-</dd>
+          </div>
+          <div>
+            <dt>Platform</dt>
+            <dd>Chrome MV3</dd>
+          </div>
+          <div>
+            <dt>Build</dt>
+            <dd id="build-date">Local unpacked</dd>
+          </div>
+        </dl>
 
-          <dl class="build-list">
-            <div>
-              <dt>Name</dt>
-              <dd id="build-name">TameUOW</dd>
-            </div>
-            <div>
-              <dt>Version</dt>
-              <dd id="build-version">-</dd>
-            </div>
-            <div>
-              <dt>Manifest</dt>
-              <dd>v3</dd>
-            </div>
-            <div>
-              <dt>Updated</dt>
-              <dd id="build-date">Local unpacked build</dd>
-            </div>
-          </dl>
-        </section>
-
-        <section class="panel compact-panel">
-          <h2>Modules</h2>
-          <ul class="module-list">
-            <li>SOLS WAM Calculator</li>
-            <li>SOLS Auto-read</li>
-            <li>Better Timetable</li>
-            <li>Moodle Popup Blocker</li>
+        <section class="update-log">
+          <h2>Version notes</h2>
+          <ul>
+            <li>Standalone Chrome extension replaces the old Tampermonkey setup.</li>
+            <li>Timetable Plus adds readable class details, filters, and overlap switching.</li>
+            <li>Mail Sweep and Quiet Moodle now have separate activity pages.</li>
+            <li>Popup navigation is icon-based with settings and build tools at the bottom.</li>
           </ul>
         </section>
       </section>

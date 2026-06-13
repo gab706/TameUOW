@@ -193,7 +193,7 @@
     const panel = createEl("div", "tuow-controls panel panel-default");
     const heading = createEl("div", "panel-heading tuow-controls-heading");
     heading.append(
-      createEl("strong", "", "Better Timetable"),
+      createEl("strong", "", "Timetable Plus"),
       createEl("span", "tuow-date", `Today is ${getTodayLabel()}`)
     );
 

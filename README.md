@@ -4,10 +4,10 @@ TameUOW is a standalone Chrome extension for University of Wollongong systems. I
 
 ## Features
 
-* **SOLS WAM Calculator** - Adds a calculated WAM table to SOLS enrolment records.
-* **Better Timetable** - Replaces SOLS' overlapping timetable with a cleaner native-looking weekly grid, readable class cards, overlap switching, current date, highlighted current weekday, locations, and weeks.
-* **SOLS Auto Read** - Automatically marks SOLSMail messages as read and records the messages it skipped.
-* **Moodle Popup Blocker** - Blocks Moodle popups and records every blocked popup.
+* **WAM Insight** - Adds a calculated WAM table to SOLS enrolment records.
+* **Timetable Plus** - Replaces SOLS' overlapping timetable with a cleaner native-looking weekly grid, readable class cards, overlap switching, current date, highlighted current weekday, locations, and weeks.
+* **Mail Sweep** - Automatically marks SOLSMail messages as read and records the messages it skipped.
+* **Quiet Moodle** - Blocks Moodle popups and records every blocked popup.
 
 ## Install in Chrome
 
