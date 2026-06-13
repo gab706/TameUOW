@@ -1,6 +1,6 @@
-# TameUOW
+# BetterUOW
 
-TameUOW is a standalone Chrome extension for University of Wollongong systems. It replaces the previous Tampermonkey setup with one unpacked extension that runs on SOLS and Moodle.
+BetterUOW is a standalone Chrome extension for University of Wollongong systems. It replaces the previous Tampermonkey setup with one unpacked extension that runs on SOLS and Moodle.
 
 ## Features
 
@@ -15,7 +15,7 @@ TameUOW is a standalone Chrome extension for University of Wollongong systems. I
 2. Enable **Developer mode**.
 3. Click **Load unpacked**.
 4. Select this repository folder.
-5. Pin the TameUOW extension icon if you want quick access to the skipped-message list.
+5. Pin the BetterUOW extension icon if you want quick access to the skipped-message list.
 
 ## Project Layout
 
@@ -27,6 +27,14 @@ TameUOW is a standalone Chrome extension for University of Wollongong systems. I
 * `src/moodle-popups.js` - Moodle content script, blocking observer, and history reporting.
 * `src/moodle-page-bridge.js` - Page-context bridge for Moodle's `BLUE_MOODLE.ClosePopup` hook.
 * `src/popup.html` - Toolbar popup dashboard for settings, activity history, and build info.
+
+## Changelog
+
+### 2.1.1
+
+* Renamed the extension to BetterUOW across the manifest, popup, content scripts, storage keys, DOM IDs, custom events, IndexedDB database, and Moodle bridge internals.
+* Rebuilt the extension icon set for the BetterUOW identity.
+* Updated build notes and documentation to reflect the new name.
 
 ## License
 

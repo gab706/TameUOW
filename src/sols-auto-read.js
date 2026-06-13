@@ -1,7 +1,7 @@
 (() => {
   "use strict";
 
-  const SETTINGS_KEY = "tameUowSettings";
+  const SETTINGS_KEY = "betterUowSettings";
   const BUTTON_SELECTOR = 'input[type="submit"][value="I have read the Message"]:not(:disabled)';
 
   const cleanText = (value) => value?.replace(/\s+/g, " ").trim() || "";

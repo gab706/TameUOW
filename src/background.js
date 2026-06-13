@@ -1,5 +1,5 @@
-const STORAGE_KEY = "tameUowBlockedItems";
-const SETTINGS_KEY = "tameUowSettings";
+const STORAGE_KEY = "betterUowBlockedItems";
+const SETTINGS_KEY = "betterUowSettings";
 const UOW_DATES_URL = "https://www.uow.edu.au/student/dates/";
 const MAX_ITEMS_PER_KIND = 100;
 
@@ -76,11 +76,11 @@ const showNotification = async (kind, count) => {
     await chrome.notifications.create({
       type: "basic",
       iconUrl: chrome.runtime.getURL("icons/icon-128.png"),
-      title: "TameUOW",
+      title: "BetterUOW",
       message: `${NOTIFICATION_MESSAGES[kind]?.(count) || `${count} item(s) recorded.`} Click the extension icon to review the list.`
     });
   } catch (error) {
-    console.warn("TameUOW notification failed:", error);
+    console.warn("BetterUOW notification failed:", error);
   }
 };
 
@@ -138,7 +138,7 @@ chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
 
     sendResponse({ ok: false, error: "Unknown message type" });
   })().catch((error) => {
-    console.warn("TameUOW background message failed:", error);
+    console.warn("BetterUOW background message failed:", error);
     sendResponse({ ok: false, error: error?.message || String(error) });
   });
 

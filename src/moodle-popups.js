@@ -1,8 +1,8 @@
 (() => {
   "use strict";
 
-  const SETTINGS_KEY = "tameUowSettings";
-  const BRIDGE_EVENT = "tameuow:moodle-popup-blocked";
+  const SETTINGS_KEY = "betterUowSettings";
+  const BRIDGE_EVENT = "betteruow:moodle-popup-blocked";
 
   let blocking = true;
   let pendingItems = [];
@@ -10,7 +10,7 @@
 
   const setBlocking = (value) => {
     blocking = Boolean(value);
-    window.postMessage({ type: "tameuow:set-moodle-blocking", blocking }, location.origin);
+    window.postMessage({ type: "betteruow:set-moodle-blocking", blocking }, location.origin);
   };
 
   const loadSettings = async () => {

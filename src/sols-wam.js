@@ -1,7 +1,7 @@
 (() => {
   "use strict";
 
-  const WAM_CLASS = "tameuow-wam-display";
+  const WAM_CLASS = "betteruow-wam-display";
 
   const isNumeric = (value) => value !== "" && Number.isFinite(Number(value));
 

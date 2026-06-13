@@ -1,15 +1,15 @@
 (() => {
   "use strict";
 
-  const SETTINGS_KEY = "tameUowSettings";
-  const FILTERS_KEY = "tameUowBetterTimetableFilters";
-  const SELECTED_WEEK_KEY = "tameUowBetterTimetableSelectedWeek";
-  const DB_NAME = "TameUOW";
+  const SETTINGS_KEY = "betterUowSettings";
+  const FILTERS_KEY = "betterUowBetterTimetableFilters";
+  const SELECTED_WEEK_KEY = "betterUowBetterTimetableSelectedWeek";
+  const DB_NAME = "BetterUOW";
   const DB_VERSION = 1;
   const SESSION_STORE = "sessionDates";
   const SESSION_CACHE_KEY = "uow-session-dates";
-  const ROOT_ID = "tameuow-better-timetable";
-  const STYLE_ID = "tameuow-better-timetable-style";
+  const ROOT_ID = "betteruow-better-timetable";
+  const STYLE_ID = "betteruow-better-timetable-style";
   const ORIGINAL_SELECTOR = "#toggle-table, #mobile-version, #desktop-version";
   const MONTHS = {
     jan: 0,

@@ -3,11 +3,11 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>TameUOW</title>
+    <title>BetterUOW</title>
     <link rel="stylesheet" href="popup.css">
   </head>
   <body>
-    <nav class="icon-rail" aria-label="TameUOW sections">
+    <nav class="icon-rail" aria-label="BetterUOW sections">
       <img src="../icons/icon-48.png" alt="" width="32" height="32">
       <button class="view-tab" type="button" data-view="sols" title="Mail Sweep" aria-label="Mail Sweep">
         <svg class="rail-icon" viewBox="0 0 24 24" aria-hidden="true">
@@ -45,17 +45,16 @@
     <main>
       <section id="home-view" class="view active" aria-label="Home">
         <header class="page-head">
-          <span>TameUOW</span>
+          <span>BetterUOW</span>
           <h1>UOW companion extension.</h1>
           <p>A standalone Chrome extension for SOLS and Moodle quality-of-life tools.</p>
         </header>
         <section class="update-log home-update">
-          <h2>Version 2.0.0</h2>
+          <h2>Version 2.1.1</h2>
           <ul>
-            <li>Moved TameUOW from Tampermonkey scripts into a standalone Chrome extension.</li>
-            <li>Added Timetable Plus with filters, clearer details, and overlap switching.</li>
-            <li>Separated Mail Sweep and Quiet Moodle into their own activity logs.</li>
-            <li>Refreshed the popup around icon navigation and quieter settings.</li>
+            <li>Renamed the extension, storage keys, injected elements, and page bridge events to BetterUOW.</li>
+            <li>Rebuilt the extension icon set around the BetterUOW identity.</li>
+            <li>Kept the Chrome MV3 helper modules aligned under the new internal naming.</li>
           </ul>
         </section>
       </section>
@@ -64,7 +63,7 @@
         <header class="page-head">
         <span id="settings-summary">0 of 3 helpers enabled</span>
           <h1>Settings</h1>
-          <p>Choose the helpers TameUOW runs in SOLS and Moodle.</p>
+          <p>Choose the helpers BetterUOW runs in SOLS and Moodle.</p>
         </header>
 
         <section class="settings-list" aria-label="Feature settings">
@@ -126,14 +125,14 @@
       <section id="about-view" class="view" aria-label="Build information">
         <header class="page-head">
           <span>Build</span>
-          <h1>TameUOW</h1>
+          <h1>BetterUOW</h1>
           <p>Installed extension details.</p>
         </header>
 
         <dl class="build-list">
           <div>
             <dt>Name</dt>
-            <dd id="build-name">TameUOW</dd>
+            <dd id="build-name">BetterUOW</dd>
           </div>
           <div>
             <dt>Version</dt>
@@ -152,10 +151,9 @@
         <section class="update-log">
           <h2>Version notes</h2>
           <ul>
-            <li>Standalone Chrome extension replaces the old Tampermonkey setup.</li>
-            <li>Timetable Plus adds readable class details, filters, and overlap switching.</li>
-            <li>Mail Sweep and Quiet Moodle now have separate activity pages.</li>
-            <li>Popup navigation is icon-based with settings and build tools at the bottom.</li>
+            <li>2.1.1 renames the extension and internal identifiers to BetterUOW.</li>
+            <li>2.1.1 replaces the extension icon artwork.</li>
+            <li>2.1.1 updates build information and local storage namespaces for the new name.</li>
           </ul>
         </section>
       </section>

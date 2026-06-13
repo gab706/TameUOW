@@ -1,5 +1,13 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="128" height="128" viewBox="0 0 128 128" role="img" aria-label="TameUOW icon">
-  <rect width="128" height="128" rx="24" fill="#175cd3"/>
-  <path fill="#fff" d="M28 32h72v16H73v48H55V48H28z"/>
-  <circle cx="92" cy="88" r="14" fill="#fdb022"/>
+<svg xmlns="http://www.w3.org/2000/svg" width="128" height="128" viewBox="0 0 128 128" role="img" aria-label="BetterUOW icon">
+  <rect width="128" height="128" rx="28" fill="#0b4f6c"/>
+  <path d="M23 32h82v14H23z" fill="#e9f8f6"/>
+  <path d="M31 51h66v12H31z" fill="#8bd3dd"/>
+  <path d="M39 68h50v12H39z" fill="#f4d35e"/>
+  <path d="M47 85h34v12H47z" fill="#e9f8f6"/>
+  <path d="M29 31h18v66H29z" fill="#e9f8f6"/>
+  <path d="M81 31h18v66H81z" fill="#e9f8f6"/>
+  <path d="M54 34h20v22H54z" fill="#0b4f6c"/>
+  <path d="M55 72h18v22H55z" fill="#0b4f6c"/>
+  <circle cx="96" cy="94" r="18" fill="#ee6c4d"/>
+  <path d="M88 94l5 5 12-13" fill="none" stroke="#fff" stroke-width="6" stroke-linecap="round" stroke-linejoin="round"/>
 </svg>

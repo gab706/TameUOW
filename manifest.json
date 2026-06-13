@@ -1,7 +1,7 @@
 {
   "manifest_version": 3,
-  "name": "TameUOW",
-  "version": "2.0.0",
+  "name": "BetterUOW",
+  "version": "2.1.1",
   "description": "A polished companion for SOLS and Moodle: WAM Insight, Mail Sweep, Timetable Plus, and Quiet Moodle.",
   "permissions": ["notifications", "storage"],
   "host_permissions": [
@@ -11,7 +11,7 @@
     "https://uow.edu.au/*"
   ],
   "action": {
-    "default_title": "TameUOW",
+    "default_title": "BetterUOW",
     "default_popup": "src/popup.html",
     "default_icon": {
       "16": "icons/icon-16.png",

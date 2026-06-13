@@ -33,7 +33,7 @@ const formatDate = (value) => {
 
 const renderBuildInfo = () => {
   const manifest = chrome.runtime.getManifest();
-  document.getElementById("build-name").textContent = manifest.name || "TameUOW";
+  document.getElementById("build-name").textContent = manifest.name || "BetterUOW";
   document.getElementById("build-version").textContent = manifest.version || "-";
   document.getElementById("build-date").textContent = "Local unpacked";
 };
