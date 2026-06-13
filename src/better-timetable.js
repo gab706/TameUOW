@@ -52,6 +52,7 @@
   let sessionStatus = "loading";
   let sessionStatusDetail = "";
   let selectedWeekState = null;
+  let hasManualWeekSelection = false;
   let filters = {
     hiddenKinds: [],
     hiddenSubjects: []
@@ -152,6 +153,16 @@
     Array.isArray(cache?.teachingRanges) &&
     cache?.periods &&
     Array.isArray(cache?.periods?.exams);
+
+  const isSessionCacheFresh = (cache, date = new Date()) => {
+    if (!hasRequiredSessionFields(cache)) return false;
+    const today = toDateOnly(date);
+    if (cache.semester === "break") {
+      const nextStart = cache.breakBetween?.next?.semesterStart;
+      return !nextStart || today < fromISODate(nextStart);
+    }
+    return today >= fromISODate(cache.semesterStart) && today <= fromISODate(cache.semesterEnd);
+  };
 
   const fetchDatesHtml = async () => {
     const response = await chrome.runtime.sendMessage({ type: "fetch-uow-dates" });
@@ -321,7 +332,7 @@
 
   const getSessionCache = async () => {
     const cached = await readSessionCache();
-    if (hasRequiredSessionFields(cached)) {
+    if (isSessionCacheFresh(cached)) {
       sessionStatus = "cached";
       sessionStatusDetail = "Using cached UOW dates.";
       return cached;
@@ -408,7 +419,7 @@
     const maxWeek = getMaxTeachingWeek(session);
     if (!maxWeek) return null;
     const sessionKey = getSessionKey(session);
-    if (selectedWeekState?.sessionKey === sessionKey) {
+    if (hasManualWeekSelection && selectedWeekState?.sessionKey === sessionKey) {
       const selectedValue = selectedWeekState?.value;
       if (selectedValue && !/^\d+$/.test(String(selectedValue))) return null;
       const selectedWeek = Number(selectedValue || selectedWeekState?.week);
@@ -457,12 +468,13 @@
     const ranges = getSelectableDateRanges(session);
     if (!ranges.length) return null;
     const sessionKey = getSessionKey(session);
-    if (selectedWeekState?.sessionKey === sessionKey && selectedWeekState?.value) {
+    const today = toDateOnly(new Date());
+    const currentRange = ranges.find((range) => today >= toDateOnly(range.start) && today <= toDateOnly(range.end));
+    if (!hasManualWeekSelection && currentRange) return currentRange;
+    if (hasManualWeekSelection && selectedWeekState?.sessionKey === sessionKey && selectedWeekState?.value) {
       const selected = ranges.find((range) => range.value === String(selectedWeekState.value));
       if (selected) return selected;
     }
-    const today = toDateOnly(new Date());
-    const currentRange = ranges.find((range) => today >= toDateOnly(range.start) && today <= toDateOnly(range.end));
     if (currentRange) return currentRange;
     const selectedWeek = getSelectedWeek(session);
     return ranges.find((range) => range.week === selectedWeek) || ranges[ranges.length - 1];
@@ -503,6 +515,7 @@
 
   const saveSelectedWeek = async (value) => {
     const numericWeek = Number(value);
+    hasManualWeekSelection = true;
     selectedWeekState = {
       sessionKey: getSessionKey(sessionCache),
       value: String(value),
@@ -510,6 +523,9 @@
     };
     await chrome.storage.local.set({ [SELECTED_WEEK_KEY]: selectedWeekState });
   };
+
+  const getSelectedFilterWeek = (session) =>
+    getSelectedDateRangeOption(session)?.week || null;
 
   const parseWeeks = (value) => {
     const weeks = new Set();
@@ -624,7 +640,7 @@
     if (eventSession && activeSession && !isSameSession(eventSession, activeSession)) return false;
     if (!event.weeks) return true;
 
-    const selectedWeek = getSelectedWeek(activeSession);
+    const selectedWeek = getSelectedFilterWeek(activeSession);
     if (!selectedWeek) return false;
     return parseWeeks(event.weeks).has(selectedWeek);
   };
