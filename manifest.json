@@ -6,7 +6,9 @@
   "permissions": ["notifications", "storage"],
   "host_permissions": [
     "https://solss.uow.edu.au/*",
-    "https://moodle.uowplatform.edu.au/*"
+    "https://moodle.uowplatform.edu.au/*",
+    "https://www.uow.edu.au/*",
+    "https://uow.edu.au/*"
   ],
   "action": {
     "default_title": "TameUOW",

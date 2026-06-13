@@ -1,5 +1,6 @@
 const STORAGE_KEY = "tameUowBlockedItems";
 const SETTINGS_KEY = "tameUowSettings";
+const UOW_DATES_URL = "https://www.uow.edu.au/student/dates/";
 const MAX_ITEMS_PER_KIND = 100;
 
 const NOTIFICATION_MESSAGES = {
@@ -126,8 +127,20 @@ chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
       return;
     }
 
+    if (message?.type === "fetch-uow-dates") {
+      const response = await fetch(UOW_DATES_URL, { credentials: "omit" });
+      if (!response.ok) {
+        throw new Error(`UOW dates request failed: ${response.status}`);
+      }
+      sendResponse({ ok: true, url: response.url, html: await response.text() });
+      return;
+    }
+
     sendResponse({ ok: false, error: "Unknown message type" });
-  })();
+  })().catch((error) => {
+    console.warn("TameUOW background message failed:", error);
+    sendResponse({ ok: false, error: error?.message || String(error) });
+  });
 
   return true;
 });
